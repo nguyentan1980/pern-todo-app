@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  database:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM postgres
+        COPY server/database.sql /docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=Admin@123
+      - POSTGRES_DB=perntodo
+    volumes:
+      - type: bind
+        source: ./pgdata
+        target: /var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  server:
+    build:
+      context: server
+    environment:
+      - DB_USER=postgres
+      - DB_PASS=Admin@123
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=perntodo
+      - APP_PORT=8080
+      - APP_HOST=0.0.0.0
+    ports:
+      - '8080:8080'
