@@ -11,7 +11,7 @@ require('dotenv').config();
 // });
 
 const pool = new Pool({
-  connectionString: 'postgresql://postgres:MMMAzz728g534NU8@exam-perntodo-ethan-env.cba6rpvi5fmd.us-east-1.rds.amazonaws.com:5432/perntodo',
+  connectionString: 'postgresql://postgres/perntodo',
 });
 
 
